@@ -1,0 +1,11 @@
+{
+	"appId": "com.laiqian.app",
+	"appName": "来钱",
+	"webDir": "dist",
+	"android": {
+		"allowMixedContent": false
+	},
+	"server": {
+		"androidScheme": "https"
+	}
+}
