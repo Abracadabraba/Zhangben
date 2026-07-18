@@ -82,7 +82,7 @@ export function getExpensesByProject(projectId) {
     .sort((a, b) => new Date(b.datetime) - new Date(a.datetime))
 }
 
-export function addExpense({ projectId, datetime, purpose, amount, note }) {
+export function addExpense({ projectId, datetime, purpose, amount, note, reimbursed = false }) {
   const expenses = getExpenses()
   const expense = {
     id: makeId('exp'),
@@ -91,6 +91,7 @@ export function addExpense({ projectId, datetime, purpose, amount, note }) {
     purpose: purpose.trim(),
     amount: Number(amount),
     note: (note || '').trim(),
+    reimbursed: Boolean(reimbursed),
     createdAt: new Date().toISOString(),
   }
   saveExpenses([expense, ...expenses])
@@ -101,6 +102,13 @@ export function addExpense({ projectId, datetime, purpose, amount, note }) {
 export function updateExpense(expenseId, patch) {
   const expenses = getExpenses().map((e) =>
     e.id === expenseId ? { ...e, ...patch, amount: patch.amount !== undefined ? Number(patch.amount) : e.amount } : e
+  )
+  saveExpenses(expenses)
+}
+
+export function toggleExpenseReimbursed(expenseId) {
+  const expenses = getExpenses().map((e) =>
+    e.id === expenseId ? { ...e, reimbursed: !e.reimbursed } : e
   )
   saveExpenses(expenses)
 }

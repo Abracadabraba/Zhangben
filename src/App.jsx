@@ -13,6 +13,7 @@ import {
   addExpense,
   updateExpense,
   deleteExpense,
+  toggleExpenseReimbursed,
 } from './utils/storage.js'
 import { exportProjectToExcel } from './utils/export.js'
 
@@ -104,6 +105,11 @@ export default function App() {
     refreshProjects()
   }
 
+  function handleToggleReimbursed(expense) {
+    toggleExpenseReimbursed(expense.id)
+    refreshExpenses(expense.projectId || selectedId)
+  }
+
   function handleExport(project) {
     exportProjectToExcel(project).catch((err) => {
       console.error('导出失败', err)
@@ -132,6 +138,7 @@ export default function App() {
             onAddExpense={handleAddExpense}
             onUpdateExpense={handleUpdateExpense}
             onDeleteExpense={handleDeleteExpense}
+            onToggleReimbursed={handleToggleReimbursed}
             onExport={handleExport}
           />
         ) : (

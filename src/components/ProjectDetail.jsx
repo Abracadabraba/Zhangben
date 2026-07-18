@@ -11,6 +11,7 @@ export default function ProjectDetail({
   onAddExpense,
   onUpdateExpense,
   onDeleteExpense,
+  onToggleReimbursed,
   onExport,
 }) {
   const [formState, setFormState] = useState(null) // null | 'new' | expense object
@@ -40,6 +41,7 @@ export default function ProjectDetail({
         expenses={expenses}
         onEdit={(exp) => setFormState(exp)}
         onDelete={(exp) => setPendingDelete(exp)}
+        onToggleReimbursed={onToggleReimbursed}
       />
 
       <button className="fab" onClick={() => setFormState('new')}>

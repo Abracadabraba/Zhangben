@@ -13,6 +13,7 @@ export default function ExpenseForm({ projects, defaultProjectId, initial, onSub
   const [purpose, setPurpose] = useState(initial?.purpose || '')
   const [amount, setAmount] = useState(initial?.amount ?? '')
   const [note, setNote] = useState(initial?.note || '')
+  const [reimbursed, setReimbursed] = useState(initial?.reimbursed || false)
   const [errors, setErrors] = useState({})
 
   function handleSubmit(e) {
@@ -34,6 +35,7 @@ export default function ExpenseForm({ projects, defaultProjectId, initial, onSub
       purpose: purpose.trim(),
       amount: Number(amount),
       note: note.trim(),
+      reimbursed,
     })
     onClose()
   }
@@ -101,6 +103,16 @@ export default function ExpenseForm({ projects, defaultProjectId, initial, onSub
             />
             {errors.amount && <span className="field-hint" style={{ color: 'var(--red)' }}>{errors.amount}</span>}
           </div>
+
+          <button
+            type="button"
+            className={`reimburse-check${reimbursed ? ' reimburse-check--done' : ''}`}
+            onClick={() => setReimbursed((v) => !v)}
+            aria-pressed={reimbursed}
+          >
+            <span className="reimburse-check__box">{reimbursed ? '✓' : ''}</span>
+            这笔已经报销
+          </button>
 
           <div className="field">
             <label htmlFor="exp-note">备注（选填）</label>

@@ -427,6 +427,10 @@ button {
   font-weight: 500;
   padding-right: 8px;
   overflow-wrap: anywhere;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
 }
 
 .ledger__col--amount {
@@ -501,6 +505,76 @@ button {
 .fab__plus {
   font-size: 18px;
   line-height: 1;
+}
+
+/* ---------------- reimbursement marker ---------------- */
+
+.reimburse-badge {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 2px 9px;
+  border: 1.5px solid var(--line);
+  background: transparent;
+  color: var(--ink-faint);
+  cursor: pointer;
+  line-height: 1.6;
+  flex-shrink: 0;
+  transition: transform 120ms ease;
+}
+
+.reimburse-badge:active {
+  transform: scale(0.95);
+}
+
+.reimburse-badge--done {
+  border-color: var(--jade);
+  color: var(--jade);
+  background: rgba(63, 107, 82, 0.1);
+  transform: rotate(-2deg);
+  position: relative;
+}
+
+.reimburse-badge--done::before {
+  content: '✓ ';
+}
+
+.reimburse-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  background: transparent;
+  border: none;
+  padding: 4px 0;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.reimburse-check__box {
+  width: 20px;
+  height: 20px;
+  border-radius: 6px;
+  border: 2px solid var(--line);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  color: transparent;
+  flex-shrink: 0;
+}
+
+.reimburse-check--done {
+  color: var(--jade);
+}
+
+.reimburse-check--done .reimburse-check__box {
+  border-color: var(--jade);
+  background: rgba(63, 107, 82, 0.14);
+  color: var(--jade);
 }
 
 /* ---------------- toolbar / buttons ---------------- */
@@ -614,7 +688,7 @@ button {
 }
 
 .modal__body {
-  padding: 18px 20px 22px;
+  padding: 18px 20px calc(22px + env(safe-area-inset-bottom));
   display: flex;
   flex-direction: column;
   gap: 14px;

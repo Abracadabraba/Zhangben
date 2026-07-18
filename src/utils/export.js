@@ -37,12 +37,17 @@ export async function exportProjectToExcel(project) {
     时间: formatDateTime(e.datetime),
     用途: e.purpose,
     金额: Number(e.amount) || 0,
+    报销状态: e.reimbursed ? '已报销' : '未报销',
     备注: e.note || '',
   }))
 
   const total = chronological.reduce((sum, e) => sum + (Number(e.amount) || 0), 0)
+  const reimbursedTotal = chronological
+    .filter((e) => e.reimbursed)
+    .reduce((sum, e) => sum + (Number(e.amount) || 0), 0)
+  const unreimbursedTotal = total - reimbursedTotal
 
-  detailRows.push({ 序号: '', 时间: '', 用途: '总计', 金额: total, 备注: '' })
+  detailRows.push({ 序号: '', 时间: '', 用途: '总计', 金额: total, 报销状态: '', 备注: '' })
 
   const detailSheet = XLSX.utils.json_to_sheet(detailRows)
   detailSheet['!cols'] = [
@@ -50,6 +55,7 @@ export async function exportProjectToExcel(project) {
     { wch: 18 }, // 时间
     { wch: 20 }, // 用途
     { wch: 12 }, // 金额
+    { wch: 10 }, // 报销状态
     { wch: 30 }, // 备注
   ]
 
@@ -77,6 +83,8 @@ export async function exportProjectToExcel(project) {
     ['导出时间', formatDateTime(new Date().toISOString())],
     ['记账笔数', chronological.length],
     ['支出总计', total],
+    ['已报销金额', reimbursedTotal],
+    ['未报销金额', unreimbursedTotal],
     ['最早一笔', firstDate],
     ['最近一笔', lastDate],
     [],

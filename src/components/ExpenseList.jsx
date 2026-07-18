@@ -10,7 +10,7 @@ function formatDateTime(iso) {
   return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(d.getHours())}:${pad(d.getMinutes())}`
 }
 
-export default function ExpenseList({ expenses, onEdit, onDelete }) {
+export default function ExpenseList({ expenses, onEdit, onDelete, onToggleReimbursed }) {
   if (expenses.length === 0) {
     return (
       <div className="empty-state">
@@ -33,7 +33,19 @@ export default function ExpenseList({ expenses, onEdit, onDelete }) {
       {expenses.map((e) => (
         <div className="ledger__row" key={e.id} onClick={() => onEdit(e)}>
           <span className="ledger__col--time">{formatDateTime(e.datetime)}</span>
-          <span className="ledger__col--purpose">{e.purpose}</span>
+          <span className="ledger__col--purpose">
+            {e.purpose}
+            <button
+              type="button"
+              className={`reimburse-badge${e.reimbursed ? ' reimburse-badge--done' : ''}`}
+              onClick={(ev) => {
+                ev.stopPropagation()
+                onToggleReimbursed(e)
+              }}
+            >
+              {e.reimbursed ? '已报销' : '标记报销'}
+            </button>
+          </span>
           <span className="ledger__col--amount">¥{formatMoney(e.amount)}</span>
           <span className="ledger__col--note">{e.note || '—'}</span>
           <span
