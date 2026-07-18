@@ -71,7 +71,7 @@ button {
 .app-header {
   background: linear-gradient(180deg, var(--red) 0%, var(--red-deep) 100%);
   color: var(--paper-light);
-  padding: 18px 20px 22px;
+  padding: calc(18px + env(safe-area-inset-top)) 20px 22px;
   border-bottom: 3px solid var(--gold);
   position: relative;
   overflow: hidden;
@@ -229,7 +229,7 @@ button {
   width: 100%;
   max-width: 880px;
   margin: 0 auto;
-  padding: 20px 20px 100px;
+  padding: 20px 20px calc(100px + env(safe-area-inset-bottom));
 }
 
 .section-heading {
@@ -477,7 +477,7 @@ button {
 .fab {
   position: fixed;
   right: 22px;
-  bottom: 26px;
+  bottom: max(26px, calc(env(safe-area-inset-bottom) + 16px));
   background: var(--red);
   color: var(--gold-soft);
   border: 2px solid var(--gold);

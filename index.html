@@ -7,9 +7,13 @@
     <meta name="theme-color" content="#7A1D24" />
     <title>来钱 · 项目记账</title>
     <meta name="description" content="来钱 - 按项目分类的随手记账应用，随手一笔，项目分明" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@600;700;900&family=Noto+Sans+SC:wght@400;500;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet" />
+    <!--
+      注意：这里故意不引入 Google Fonts 之类的外部字体链接。
+      App 需要完全离线可用，如果 <link> 指向一个连不上的外部域名，
+      浏览器内核在渲染首屏前会等待这个请求超时，在弱网/无网环境下
+      会导致开屏卡白屏几十秒到几分钟。所以字体全部走系统自带字体
+      （Android 系统自带 Noto Sans CJK，中文显示完全没问题）。
+    -->
   </head>
   <body>
     <div id="root"></div>

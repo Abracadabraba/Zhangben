@@ -3,7 +3,8 @@
 	"appName": "来钱",
 	"webDir": "dist",
 	"android": {
-		"allowMixedContent": false
+		"allowMixedContent": false,
+		"adjustMarginsForEdgeToEdge": "force"
 	},
 	"server": {
 		"androidScheme": "https"
